@@ -27,7 +27,7 @@
 # include <sys/types.h>
 # include <sys/xattr.h>
 # include <stdint.h>
-# include "tenvv.h"
+
 # define BUFF_SIZE 256
 
 # define BLEUCLAIR 	"\033[01;34m"
@@ -45,26 +45,6 @@ typedef enum	e_boolen {
 	TRUE = 1
 }				t_bool;
 
-typedef struct s_file	t_file;
-struct	s_file
-{
-	char		*name;
-	char		*path;
-	char		type;
-	char		*mode;
-	int			nb_of_l;
-	char		*owner;
-	char		*group;
-	int			size;
-	time_t		modif_time;
-	time_t		access_time;
-	int			block;
-	char		*link;
-	int			total;
-	t_file		*sdir;
-	t_file		*next;
-};
-
 int		ft_printf(char *format, ...);
 char	*ft_strchr_end(const char *src, char c);
 int		ft_close(int fd);
@@ -73,9 +53,7 @@ char	**ft_strarrjoin(char **src, char **to_add);
 char	**ft_strarrjoin_fr(char **src, char **to_add);
 int		ft_match(char *s1, char *s2);
 void	ft_write_in_file(char *path, char *str);
-char	*ft_get_line_in_file(char *path, int n);
 int		ft_open(char *path);
-char	*ft_search_line_in_file(char *path, char *src);
 void	ft_putstrarr_fd(char **t, int fd);
 void	ft_strdel_from_arr(int n, void *arr, size_t width, int len);
 char	*ft_get_next_word(char *str);
@@ -94,16 +72,7 @@ char	*ft_strjoin_fr(char *s1, char *s2);
 char	*ft_stradd_char(char *str, char c);
 char	*ft_strnew_nchar(char c, int n);
 char	*ft_strjoin_fr(char *s1, char *s2);
-void	ft_get_file_inf(t_file *file, struct dirent *t_dir, char *path);
-t_file	*ft_get_tfile(char *path, int recursive);
-t_file	*ft_search_tfile(char *path, int recursif);
-void	ft_put_tfile(t_file *file);
-t_file	*ft_new_tfile(void);
-void	ft_del_tfile(t_file *file);
-void	ft_free_tfile(t_file *file);
 void	ft_putnstr(char *str, int n);
-t_file	*ft_dir_compltion(char *str);
-t_file	*ft_sort_tfile(t_file *file, int (*f)(t_file *file, t_file *tmp));
 char	*ft_new_path(char *s1, char *s2);
 char	*ft_get_prev_path(char *path);
 int		get_next_line(const int fd, char **line);

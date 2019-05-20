@@ -177,8 +177,7 @@ clean: lclean
 	@ $(MAKE) -C $(LIBFT_PRTF_PATH) --no-print-directory clean
 
 fclean:	lfclean
-	@ $(MAKE) -C $(LIBFT_PATH) --no-print-directory fclean
-	@ $(MAKE) -C $(LIBFT_PRTF_PATH) --no-print-directory fclean
+	@ $(MAKE) -C $(LIBFT_PATH) fclean
 
 re:		fclean all
 
