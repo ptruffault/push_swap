@@ -23,6 +23,9 @@ typedef struct	s_moves
 	char		*op;
 }				t_moves;
 
+//tools
+int pile_max(t_pile *p);
+int pile_min(t_pile *p);
 
 //display
 void 	putpile(t_instruct *i, char *op);

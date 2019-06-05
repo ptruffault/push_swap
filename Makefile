@@ -27,6 +27,7 @@ SRC		:=	\
 	move_p.c 			\
 	move_s.c 			\
 	instruction_handler.c 	\
+	pile_tools.c 		\
 
 SRC2		:=	\
 	main_push_swap.c 	\
@@ -39,6 +40,7 @@ SRC2		:=	\
 	move_p.c 			\
 	move_s.c 			\
 	instruction_handler.c 	\
+	pile_tools.c \
 
 SRCDIR	:=	srcs
 INCDIR	:=	includes

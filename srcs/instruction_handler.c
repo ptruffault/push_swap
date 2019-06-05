@@ -24,6 +24,7 @@ int	move(t_instruct *ins, char *op, t_bool affichage)
 	{
 		if (ft_strequ(op, g_moves[i].op))
 		{
+			//putpile(ins, op);
 			g_moves[i].fct(ins);
 			if (affichage)
 				ft_putendl(op);
