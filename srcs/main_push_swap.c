@@ -18,13 +18,30 @@ int is_already_sorted(t_instruct *ins)
 	return (ret);
 }
 
+char *where_to_go(t_instruct *ins)
+{
+	int i;
+
+	i = 0;
+	while (i < ins->size && ins->a->t[i] < ins->a->t[i + 1])
+		i++;
+	if (i > ins->size / 2)
+		return ("rra");
+	else
+		return ("ra");
+
+
+}
+
 void only_swap(t_instruct *ins)
 {
 	int zero;
 
 	while (!check_sort(ins))
 	{
-		if (ins->pa->t[0] > ins->pa->t[1] && !(ins->pa->t[0] == ins->pa->size - 1 && ins->pa->t[1] == 0))
+		if (ins->a->size > 4 && ins->pa->t[0] == ins->pa->size - 1)
+			move(ins, "pb", TRUE);
+		else if (ins->pa->t[0] > ins->pa->t[1] && !(ins->pa->t[0] == ins->pa->size - 1 && ins->pa->t[1] == 0))
 			move(ins, "sa", TRUE);
 		else if ((zero = is_already_sorted(ins)) > 0)
 		{
@@ -32,10 +49,15 @@ void only_swap(t_instruct *ins)
 				nmove(ins, "rra", ins->a->size - zero);
 			else
 				nmove(ins, "ra", zero);
+			while (ins->b->size > 0)
+			{
+				move(ins, "pa", TRUE);
+				move(ins, "ra", TRUE);
+			}
 		}
 		else
-			move(ins, "ra", TRUE);
-		putpile(ins);
+			move(ins, where_to_go(ins), TRUE);
+		//putpile(ins);
 	}
 }
 

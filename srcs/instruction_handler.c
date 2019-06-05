@@ -54,13 +54,10 @@ void	instruct_loop(t_instruct *ins, t_bool affichage)
 	{
 		while (op[++j])
 		{
+			if (affichage)
+				putpile(ins, op[j]);
 			if (!move(ins, op[j], FALSE))
 				break;
-			else if (affichage)
-			{
-				ft_printf("\n%s DONE\n", op[j]);
-				putpile(ins);
-			}
 		}
 		ft_freestrarr(op);
 	}

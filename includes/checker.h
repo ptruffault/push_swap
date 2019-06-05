@@ -25,7 +25,7 @@ typedef struct	s_moves
 
 
 //display
-void 	putpile(t_instruct *i);
+void 	putpile(t_instruct *i, char *op);
 
 //moves fonctions
 void	move_sa(t_instruct *i);

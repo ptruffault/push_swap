@@ -64,6 +64,8 @@ int			init_instruction(t_instruct *ins, char **argv, int argc)
 			return (0);
 		}
 		ins->size = ins->a->size;
+		ins->pa->size = ins->size;
+		ins->pb->size = 0;
 	}
 	else
 		return (usage(argv[0]));
