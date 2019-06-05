@@ -12,16 +12,33 @@
 
 NAME	= checker
 
+NAME2	= push_swap
+
 UNAME	:= $(shell uname)
 
 SRC		:=	\
-	main.c				\
+	main_checker.c		\
+	check_sort.c 		\
+	init_pile.c 		\
+	instruct_tools.c 	\
+	display.c 			\
+	move_rr.c 			\
+	move_r.c 			\
+	move_p.c 			\
+	move_s.c 			\
+	instruction_handler.c 	\
+
+SRC2		:=	\
+	main_push_swap.c 	\
+	check_sort.c 		\
+	instruct_tools.c 	\
 	init_pile.c 		\
 	display.c 			\
 	move_rr.c 			\
 	move_r.c 			\
 	move_p.c 			\
 	move_s.c 			\
+	instruction_handler.c 	\
 
 SRCDIR	:=	srcs
 INCDIR	:=	includes
@@ -70,6 +87,7 @@ DBGLOCA	:=	$(subst $(SRCDIR), $(DBGDIR), $(SRCLOCA))
 DEPLOCA	:=	$(subst $(SRCDIR), $(DEPDIR), $(SRCLOCA))
 
 OBJ		:=	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
+OBJ2	:=	$(addprefix $(OBJDIR)/, $(SRC2:.c=.o))
 DBG		:=	$(addprefix $(DBGDIR)/, $(SRC:.c=.o))
 DEP		:=	$(addprefix $(DEPDIR)/, $(SRC:.c=.d))
 SRC		:=	$(addprefix $(SRCDIR)/, $(SRC))
@@ -85,12 +103,17 @@ KO			= 		$(NO_COLOR)[\033[00;31mKO$(NO_COLOR)]
 #           RULES           #
 #############################
 #### COMPILE ####
-all: $(NAME)
+all: $(NAME) $(NAME2)
 
-$(NAME):	$(OBJ) $(LIBFT_PATH)/$(LIBFT) $(LIBFT_PRTF_PATH)/$(LIBFT_PRTF)
+$(NAME):	$(OBJ) $(LIBFT_PATH)/$(LIBFT)
 	@ echo "$(OP_COLOR) building $(NAME)$(NO_COLOR)"
 	@ $(LD) -o $(NAME) $(OBJ) $(LDFLAG)
 	@ printf "$(DONE)$(OP_COLOR)$(NAME)$(NO_COLOR)\n"
+
+$(NAME2): 	$(OBJ2) $(LIBFT_PATH)/$(LIBFT)
+	@ echo "$(OP_COLOR) building $(NAME2)$(NO_COLOR)"
+	@ $(LD) -o $(NAME2) $(OBJ2) $(LDFLAG)
+	@ printf "$(DONE)$(OP_COLOR)$(NAME2)$(NO_COLOR)\n"
 
 
 $(OBJDIR)/%.o:	$(SRCDIR)/%.c | $(OBJDIR) $(DEPDIR)
@@ -102,9 +125,6 @@ $(OBJDIR)/%.o:	$(SRCDIR)/%.c | $(OBJDIR) $(DEPDIR)
 
 $(LIBFT_PATH)/$(LIBFT):
 	@ $(MAKE) -C $(LIBFT_PATH) --no-print-directory
-
-$(LIBFT_PRTF_PATH)/$(LIBFT_PRTF):
-	@ $(MAKE) -C $(LIBFT_PRTF_PATH) --no-print-directory
 
 # Dir created to store build cache
 $(OBJDIR):
@@ -154,7 +174,7 @@ clear:
 	@clear
 
 sclean:
-	@rm -rf $(OBJ) $(NAME)
+	@rm -rf $(OBJ) $(OBJ2) $(NAME) $(NAME2)
 
 #### LOCAL (Don't recompile lib) ####
 lclean:

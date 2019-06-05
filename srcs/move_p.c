@@ -29,6 +29,11 @@ void		move_pa(t_instruct *ins)
 	{
 		push(ins->a, ins->b->t[0]);
 		remove_first(ins->b);
+		if (ins->pb)
+		{
+			push(ins->pa, ins->pb->t[0]);
+			remove_first(ins->pb);
+		}
 	}
 }
 
@@ -38,5 +43,10 @@ void		move_pb(t_instruct *ins)
 	{
 		push(ins->b, ins->a->t[0]);
 		remove_first(ins->a);
+		if (ins->pa)
+		{
+			push(ins->pb, ins->pa->t[0]);
+			remove_first(ins->pa);
+		}
 	}
 }

@@ -11,11 +11,11 @@ void 	putpile(t_instruct *ins)
 	{
 		ft_printf("[%i]", i);
 		if (i < ins->a->size)
-			ft_printf(" |%i| ", ins->a->t[i]);
+			ft_printf(" |%i|(%i) ", ins->a->t[i], ins->pa->t[i]);
 		else
 			ft_putstr(" ... ");
 		if (i < ins->b->size)
-			ft_printf(" |%i|\n", ins->b->t[i]);
+			ft_printf(" |%i|(%i)\n", ins->b->t[i],ins->pb->t[i]);
 		else
 			ft_putstr(" ...\n");
 		i++;

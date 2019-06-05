@@ -30,8 +30,11 @@ static t_pile *check_doublon(t_pile *ret)
 
 t_pile	*free_pile(t_pile *p)
 {
-	free(p->t);
-	free(p);
+	if (p)
+	{
+		free(p->t);
+		free(p);
+	}
 	return (NULL);
 }
 

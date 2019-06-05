@@ -15,11 +15,13 @@ static void move_r(t_pile *p)
 void	move_rra(t_instruct *ins)
 {
 	move_r(ins->a);
+	move_r(ins->pa);
 }
 
 void	move_rrb(t_instruct *ins)
 {
 	move_r(ins->b);
+	move_r(ins->pb);
 }
 
 void	move_rrr(t_instruct *ins)

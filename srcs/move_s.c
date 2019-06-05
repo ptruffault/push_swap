@@ -15,11 +15,14 @@ static void	move_s(t_pile *p)
 void	move_sa(t_instruct *i)
 {
 	move_s(i->a);
+	move_s(i->pa);
 }
 
 void	move_sb(t_instruct *i)
 {
 	move_s(i->b);
+	move_s(i->pb);
+
 }
 
 void	move_ss(t_instruct *i)

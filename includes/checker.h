@@ -10,8 +10,11 @@ typedef struct	s_pile
 
 typedef struct	s_insruct
 {
+	int 		size;
 	t_pile		*a;
 	t_pile		*b;
+	t_pile		*pa;
+	t_pile		*pb;
 }				t_instruct;
 
 typedef struct	s_moves
@@ -37,7 +40,14 @@ void	move_rra(t_instruct *i);
 void	move_rrb(t_instruct *i);
 void	move_rrr(t_instruct *i);
 
+int		nmove(t_instruct *ins, char *op , int n);
+void	instruct_loop(t_instruct *ins, t_bool affichage);
+int		move(t_instruct *ins, char *op, t_bool affichage);
+
+int		check_sort(t_instruct *ins);
 t_pile *init_pile_a(char **argv);
 t_pile *init_pile_b(int size);
+int		init_instruction(t_instruct *ins, char **argv, int argc);
+void	free_instruct(t_instruct *ins);
 t_pile	*free_pile(t_pile *p);
 #endif
