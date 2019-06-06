@@ -24,7 +24,6 @@ int	move(t_instruct *ins, char *op, t_bool affichage)
 	{
 		if (ft_strequ(op, g_moves[i].op))
 		{
-			//putpile(ins, op);
 			g_moves[i].fct(ins);
 			if (affichage)
 				ft_putendl(op);
@@ -46,10 +45,11 @@ int	nmove(t_instruct *ins, char *op , int n)
 	return (i);
 }
 
-void	instruct_loop(t_instruct *ins, t_bool affichage)
+int	instruct_loop(t_instruct *ins, t_bool affichage)
 {
 	char 	**op;
 	int 	j;
+
 	j = -1;
 	if ((op = ft_get_txt(0)))
 	{
@@ -62,4 +62,5 @@ void	instruct_loop(t_instruct *ins, t_bool affichage)
 		}
 		ft_freestrarr(op);
 	}
+	return (j);
 }

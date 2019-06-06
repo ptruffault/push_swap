@@ -46,15 +46,18 @@ t_pile *init_pile_a(char **argv)
 	if (!(ret = (t_pile *)malloc(sizeof(t_pile))))
 		return (NULL);
 	ret->size = ft_strarrlen(argv);
+	i = -1;
+	while (argv[++i])
+		if (*argv[i] == '-' && ft_strchr("ar", argv[i][1]))
+			ret->size--;
 	if (!(ret->t = (int *)malloc(sizeof(int) * ret->size)))
 		return (free_pile(ret));
 	i = -1;
 	while (++i < ret->size)
 		if (is_valid_arg(argv[i]))
 			ret->t[i] = ft_atoi(argv[i]);
-		else
+		else if (*argv[i] != '-' && !ft_strchr("ar", argv[i][1]))
 			return (free_pile(ret));
-	
 	return (check_doublon(ret));
 }
 
