@@ -41,6 +41,7 @@ SRC2		:=	\
 	move_s.c 			\
 	instruction_handler.c 	\
 	pile_tools.c \
+	sort_tools.c \
 
 SRCDIR	:=	srcs
 INCDIR	:=	includes
@@ -68,7 +69,7 @@ endif
 ifeq ($(UNAME), Darwin)
 STDFLAG		?=	-ansi
 endif
-WFLAGS		?=	-Wall -Wextra -Werror -pedantic
+WFLAGS		?=	-Wall -Wextra -Werror -pedantic -g
 CFLAGS		=	$(WFLAGS) $(INCFLAG) $(STDFLAG)
 
 DEPGEN		:=	$(CC)

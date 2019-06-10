@@ -21,7 +21,7 @@ char		**ft_strsplit_whitespace(char *str)
 	i = 0;
 	k = 0;
 	t = NULL;
-	if (!(t = (char **)malloc(sizeof(char *) * ft_count_word(str) + 1)))
+	if (!(t = (char **)malloc(sizeof(char *) * (ft_count_word(str)))))
 	{
 		error("allocation failed", "ft_strsplit_whitespace");
 		return (NULL);
@@ -32,8 +32,11 @@ char		**ft_strsplit_whitespace(char *str)
 			i++;
 		if (str[i] != '\0')
 		{
-			t[k] = ft_get_next_word(&str[i]);
-			i = i + ft_strlen(t[k++]);
+			t[k++] = ft_get_next_word(&str[i]);
+			while (str[i] && !ft_isspace(str[i]))
+				i++;
+			if (str[i])
+				i++;
 		}
 	}
 	t[k] = NULL;

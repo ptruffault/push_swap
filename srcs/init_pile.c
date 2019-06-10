@@ -4,6 +4,8 @@ static int 	is_valid_arg(char *arg)
 {
 	int i;
 
+	if (!arg)	
+		return (0);
 	i = arg[0] == '-' ? 0 : -1;
 	while (arg[++i])
 		if (!ft_isdigit(arg[i]))
@@ -52,12 +54,38 @@ t_pile *init_pile_a(char **argv)
 			ret->size--;
 	if (!(ret->t = (int *)malloc(sizeof(int) * ret->size)))
 		return (free_pile(ret));
+	char **arr;
+	int k;
+	int j;
+
 	i = -1;
-	while (++i < ret->size)
-		if (is_valid_arg(argv[i]))
-			ret->t[i] = ft_atoi(argv[i]);
-		else if (*argv[i] != '-' && !ft_strchr("ar", argv[i][1]))
+	k = -1;
+	while (argv[++i])
+	{
+		if (*argv[i] == '-' && ft_isalpha(argv[i][1]) && !ft_strchr("ar", argv[i][1]))
+		{
+			error_c("invalid options", argv[i][1]);
 			return (free_pile(ret));
+		}
+		else if (is_valid_arg(argv[i]))
+			ret->t[++k] = ft_atoi(argv[i]);
+		else if (argv[i] && (arr = ft_strsplit(argv[i], ' '))
+			&& *arr && (ret->t = ft_realloc(ret->t, ret->size * sizeof(int)
+			, (ret->size + ft_strarrlen(arr)) * sizeof(int))))
+		{
+			j = -1;
+			ret->size--;
+			while (arr[++j])
+			{
+				if (is_valid_arg(arr[j]))
+				{
+					ret->size++;
+					ret->t[++k] = ft_atoi(arr[j]);
+				}
+			}
+			ft_freestrarr(arr);
+		}
+	}
 	return (check_doublon(ret));
 }
 

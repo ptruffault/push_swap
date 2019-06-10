@@ -7,7 +7,7 @@ static void	move_r(t_pile *p)
 
 	i = -1;
 	tmp = p->t[0];
-	while (++i < p->size)
+	while (++i < p->size - 1)
 		p->t[i] = p->t[i + 1];
 	p->t[p->size - 1] = tmp; 
 }

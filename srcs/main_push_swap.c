@@ -1,65 +1,116 @@
 #include "checker.h"
 
-int zero_position(t_pile *p)
+int max(int a, int b)
 {
-	int i;
-
-	i = -1;
-	while (++i < p->size)
-		if (p->t[i] == 0)
-			return (i);
-	return (-1);
+	if (a > b)
+		return (a);
+	else
+		return (b);	
 }
 
-int is_already_sorted(t_instruct *ins)
+int min(int a, int b)
 {
-	int i;
-
-	i = -1;
-	while (++i < ins->a->size - 1)
-		if (ins->pa->t[i] + 1 != ins->pa->t[i + 1]
-			&& ins->pa->t[i + 1] != 0)
-			return (0);
-	return (1);
+	if (a < b)
+		return (a);
+	else
+		return (b);
 }
 
-char *where_to_go(t_instruct *ins)
+int abs(int n)
+{
+	return (n >= 0 ? n : -n);
+}
+
+int abs_min(int a, int b)
+{
+	if (abs(a) < abs(b))
+		return (a);
+	else
+		return (b);
+}
+
+int where_to_swap(t_pile *p)
 {
 	int i;
 
 	i = 0;
-	while (i < ins->size && (ins->a->t[i] < ins->a->t[i + 1] || (ins->pa->t[i] == pile_max(ins->pa) && ins->pa->t[i + 1] == 0)))
+	while (i < p->size && ((p->t[i] < p->t[i + 1] || (p->t[i] == pile_max(p) && p->t[i + 1] == pile_min(p)))))
 		i++;
-	if (i >= ins->a->size / 2)
-		return ("rra");
-	else
-		return ("ra");
+	return (way_selection(p, i));
+}
+
+int find_place(t_pile *p, int val)
+{
+	int i;
+
+	i = -1;
+	if (val == p->t[0] - 1)
+		return (0);
+	while (++i < p->size)
+	{
+		if (p->t[i] == val + 1)
+			return (i);
+		if (p->t[i] == val - 1)	
+			return (i + 1);
+	}
+	return (-1);
 }
 
 
+void go_forward(t_instruct *ins)
+{
+	if (ins->b->size > 4 && !is_already_sorted(ins->pb, FALSE)
+		&& !is_already_sorted(ins->pb, FALSE))
+		move(ins, where_to_swap(ins->pa) > 0 ? "rr" : "rrr" , TRUE);
+	else
+		move(ins, where_to_swap(ins->pa) > 0 ? "ra" : "rra" , TRUE);
+}
+
+void	finish_sort(t_instruct *ins)
+{
+	int m;
+	int pos;
+
+	while (ins->b->size > 0)
+	{
+		if ((pos = find_place(ins->pa , ins->pb->t[0])) >= 0)
+		{
+			m = way_selection(ins->pa , pos);
+			nmove(ins, m > 0 ? "ra" : "rra", abs(m));
+			move(ins, "pa" ,TRUE);
+		}
+		else if (ins->b->size  > 1)
+			move(ins, "rb", TRUE);
+		else
+			move(ins, "ra", TRUE);
+		
+	}
+	if (min_position(ins->pa) > ins->a->size / 2)
+		nmove(ins, "rra", ins->a->size - min_position(ins->pa));
+	else
+		nmove(ins, "ra", min_position(ins->pa));	
+}
 
 void only_swap(t_instruct *ins)
 {
-	int zero;
 
-	while (!check_sort(ins))
+	while (!check_sort(ins->a) || ins->b->size > 0)
 	{
-		if (is_already_sorted(ins))
-		{
-			zero = zero_position(ins->pa);
-			if (zero > ins->a->size / 2)
-				nmove(ins, "rra", ins->a->size - zero);
-			else
-				nmove(ins, "ra", zero);
-			while (ins->b->size > 0)
-				move(ins, "pa", TRUE);
-		}
-		else if (ins->a->size > 3 && ins->pa->t[0] == pile_min(ins->pa))
+		if (is_already_sorted(ins->pa, TRUE))
+			finish_sort(ins);
+		else if (ONLY_SWAP < ins->a->size && pivot(ins->pa, ins->size))
 			move(ins, "pb", TRUE);
-		else if (ins->pa->t[0] > ins->pa->t[1] && !(ins->pa->t[0] == ins->pa->size && ins->pa->t[1] == 0))
-			move(ins, "sa", TRUE);
+		else if (ins->pa->t[0] > ins->pa->t[1] && !(ins->pa->t[0] == pile_max(ins->pa) && ins->pa->t[1] == pile_min(ins->pa)))
+		{
+			if (ins->b->size > 1 && ins->pb->t[0] < ins->pb->t[1] && !(ins->pb->t[0] == pile_min(ins->pb) && ins->pb->t[1] == pile_max(ins->pb)))
+				move(ins, "ss", TRUE);
+			else
+				move(ins, "sa", TRUE);
+		}
+		else if (ins->b->size > 1 && ins->pb->t[0] < ins->pb->t[1] && !(ins->pb->t[0] == pile_min(ins->pb) && ins->pb->t[1] == pile_max(ins->pb)))
+			move(ins, "sb", TRUE);
 		else
-			move(ins, where_to_go(ins), TRUE);
+			go_forward(ins);
 	}
 }
 
@@ -69,7 +120,10 @@ int main(int argc, char **argv)
 
 	if (init_instruction(&i, argv, argc))
 	{
+		i.inst_nb = 0;
 		only_swap(&i);
+		if (check_option(argv, 'r'))
+			ft_printf("\n%i opérations\n", i.inst_nb);
 		free_instruct(&i);
 	}
 	return (0);

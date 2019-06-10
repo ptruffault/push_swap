@@ -17,7 +17,7 @@ static void	remove_first(t_pile *p)
 	i = -1;
 	if (p->size > 0)
 	{
-		while (++i < p->size)
+		while (++i < p->size - 1)
 			p->t[i] = p->t[i + 1];
 		p->size--;
 	}

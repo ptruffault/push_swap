@@ -14,20 +14,48 @@ void	ft_putnstr(char *s, int n)
 		ft_putstr(s);	
 }
 
-void 	putpile(t_instruct *ins, char *op)
+
+void 	puttab(t_instruct *ins)
 {
-	char buf[1024];
 	int i;
 
 	i = 0;
+
+	ft_printf("A(%i)  B(%i)\n", ins->a->size, ins->b->size);
+	while (i < ins->a->size || i < ins->b->size)
+	{
+		if (i < ins->a->size)
+			ft_printf(" |%i| ", ins->pa->t[i]);
+		else
+			ft_putstr(" ... ");
+		if (i < ins->b->size)
+			ft_printf(" |%i|\n", ins->pb->t[i]);
+		else
+			ft_putstr(" ...\n");
+		i++;
+	}
+}
+
+void	clear_term(void)
+{
+	char buf[1024];
+
 	tgetent(buf, getenv("TERM"));
 	ft_putstr(tgetstr("cl", NULL));
+}
+
+void 	putpile(t_instruct *ins, char *op)
+{
+	int i;
+
+	i = 0;
+	ft_putstr("\n\n\n");
 	while (i < ins->pa->size || i < ins->pb->size)
 	{
 		if (i < ins->pa->size)
 		{
 			ft_putstr(S_VERT);
-			ft_putnchar(ins->pa->t[i] + 32, ins->pa->t[i] + 1);
+			ft_putnchar('#', ins->pa->t[i] + 1);
 			ft_putstr(NORMAL);
 			ft_putnchar(' ', pile_max(ins->pa) - ins->pa->t[i] + 2);
 			ft_putstr(ROUGE);
@@ -39,13 +67,10 @@ void 	putpile(t_instruct *ins, char *op)
 				ft_putstr("←════");
 			else if (ft_strequ(op, "pb") && i == 0)
 				ft_putstr("════→");
-			else if (i == 0 && (ft_strequ(op, "ra") || ft_strequ(op, "rr")))
+			else if (ft_strequ(op, "ra") || ft_strequ(op, "rr"))
 				ft_putstr(" ↑   ");
-			else if (i == ins->a->size - 1 && (ft_strequ(op, "rra") || ft_strequ(op, "rrr")))
+			else if (ft_strequ(op, "rra") || ft_strequ(op, "rrr"))
 				ft_putstr(" ↓   ");
-			else if (ft_strequ(op, "rra") || ft_strequ(op, "rrr") 
-		 		|| ft_strequ(op, "ra") || ft_strequ(op, "rr"))
-				ft_putstr(" ║   ");
 			else
 				ft_putstr("     ");
 			ft_putstr(NORMAL);
@@ -59,24 +84,22 @@ void 	putpile(t_instruct *ins, char *op)
 				ft_putstr("╔═→  ");
 			else if (i == 1 &&  (ft_strequ(op, "sb") || ft_strequ(op, "ss")))
 				ft_putstr("╚═→  ");
-			else if (i == 0 && (ft_strequ(op, "rb") || ft_strequ(op, "rr")))
+			else if (ft_strequ(op, "rb") || ft_strequ(op, "rr"))
 				ft_putstr("↑    ");
-			else if (i == ins->b->size - 1 && (ft_strequ(op, "rrb") || ft_strequ(op, "rrr")))
+			else if (ft_strequ(op, "rrb") || ft_strequ(op, "rrr"))
 				ft_putstr("↓    ");
-			else if (ft_strequ(op, "rrb") || ft_strequ(op, "rrr")
-				|| ft_strequ(op, "rb") || ft_strequ(op, "rr"))
-				ft_putstr("║    ");
 			else
 				ft_putstr("     ");
 			ft_putstr(S_BLEU);
-			ft_putnchar(ins->pa->t[i] + 32,  ins->pb->t[i] + 1);
+			ft_putnchar('#',  ins->pb->t[i] + 1);
 			ft_putstr(NORMAL);
 		}
 		ft_putchar('\n');
 		i++;
 	}
 	if (op)
-		ft_printf("           %s\n\n", op);
-	if (!check_sort(ins))
-		sleep(1);
+	{
+		ft_putnchar(' ', pile_max(ins->pa) + 5);
+		ft_printf("%s%s%s\n", ROUGE, op, NORMAL);
+	}
 }

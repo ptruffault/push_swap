@@ -19,15 +19,12 @@ int	ft_count_word(char *s)
 
 	i = 0;
 	n = 0;
-	while (ft_isspace(s[i]))
-		i++;
 	while (s[i])
 	{
-		if (ft_isspace(s[i]) && !(ft_isspace(s[i - 1])))
+		if ((i == 0 && !ft_isspace(s[i]))
+			|| (i > 0 && !ft_isspace(s[i]) && ft_isspace(s[i - 1])))
 			n++;
 		i++;
 	}
-	if (!(ft_isspace(s[i - 1])) && !s[i])
-		n++;
 	return (n);
 }

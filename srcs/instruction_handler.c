@@ -24,7 +24,15 @@ int	move(t_instruct *ins, char *op, t_bool affichage)
 	{
 		if (ft_strequ(op, g_moves[i].op))
 		{
+		//	clear_term();
+		//	putpile(ins, op);
+
+			ins->inst_nb++;
 			g_moves[i].fct(ins);
+			
+		//	puttab(ins);
+		//	ft_putstr("\n\n\n\n\n\n\n\n\n\n\n\n");
+
 			if (affichage)
 				ft_putendl(op);
 			return (1);
@@ -56,9 +64,17 @@ int	instruct_loop(t_instruct *ins, t_bool affichage)
 		while (op[++j])
 		{
 			if (affichage)
+			{
+				clear_term();
 				putpile(ins, op[j]);
+			}
 			if (!move(ins, op[j], FALSE))
 				break;
+			if (affichage)
+			{
+				//puttab(ins);
+				sleep(1);
+			}
 		}
 		ft_freestrarr(op);
 	}
