@@ -30,7 +30,6 @@ typedef struct	s_moves
 
 int check_option(char **argv, char option);
 
-//tools
 int pile_max(t_pile *p);
 int pile_min(t_pile *p);
 int pivot(t_pile *p, int total);
@@ -44,12 +43,11 @@ int 	is_already_sorted(t_pile *p, t_bool croissan);
 
 
 
-//display
 void	clear_term(void);
 void 	puttab(t_instruct *ins);
 void 	putpile(t_instruct *i, char *op);
 
-//moves fonctions
+
 void	move_sa(t_instruct *i);
 void	move_sb(t_instruct *i);
 void	move_ss(t_instruct *i);

@@ -62,15 +62,9 @@ LIB_INC		+= -I $(LIBFT_PATH)/includes
 CC			?=	cc
 
 INCFLAG		:=	-I $(INCDIR) $(LIB_INC)
-ifeq ($(UNAME), Linux)
-STDFLAG		?=	-std=gnu11
-endif
-
-ifeq ($(UNAME), Darwin)
-STDFLAG		?=	-ansi
-endif
+ 
 WFLAGS		?=	-Wall -Wextra -Werror -pedantic -g
-CFLAGS		=	$(WFLAGS) $(INCFLAG) $(STDFLAG)
+CFLAGS		=	$(WFLAGS) $(INCFLAG) 
 
 DEPGEN		:=	$(CC)
 DEPFLAG		:=	-MM $(INCFLAG)
@@ -155,7 +149,6 @@ warn:	lre
 #### DEBUGING ####
 $(DBGDIR)/%.o:		$(SRCDIR)/%.c | $(DBGDIR) $(DEPDIR)
 	@printf "$(COLOR)$<$(NO_COLOR) -> "
-	@touch $<
 	@ $(CC) -c $< $(CFLAGS) -o  $@ && printf "$(DONE)\n" || printf "$(KO)\n"
 	@ $(DEPGEN) -c $< $(DEPFLAG) -MQ $@ \
 		> $(subst $(SRCDIR), $(DEPDIR), $(<:.c=.d))

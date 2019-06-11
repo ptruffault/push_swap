@@ -1,7 +1,5 @@
 #include "checker.h"
 
-// options : -a -> affichage des piles à chaque opération
-//			 -r -> affichage du résultat
 int main(int argc, char **argv)
 {
 	t_instruct i;

@@ -11,7 +11,6 @@ int pile_max(t_pile *p)
 		if (p->t[i] > ret)
 			ret = p->t[i];
 	return (ret);
-
 }
 
 int pile_min(t_pile *p)
