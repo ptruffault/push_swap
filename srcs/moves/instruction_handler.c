@@ -25,14 +25,14 @@ int	move(t_instruct *ins, char *op, t_bool affichage)
 		if (ft_strequ(op, g_moves[i].op))
 		{
 			//clear_term();
-			//putpile(ins, op);
+		//	putpile(ins, op);
 
 			ins->inst_nb++;
 			g_moves[i].fct(ins);
 			
 			//puttab(ins);
 			//ft_putstr("\n\n\n\n\n\n\n\n\n\n\n\n");
-			//sleep(1);
+			//usleep(50000);
 			if (affichage)
 				ft_putendl(op);
 			return (1);
@@ -73,7 +73,7 @@ int	instruct_loop(t_instruct *ins, t_bool affichage)
 			if (affichage)
 			{
 				//puttab(ins);
-				sleep(1);
+				usleep(50000);
 			}
 		}
 		ft_freestrarr(op);

@@ -2,8 +2,10 @@
 # define CHECKER_H
 #include "libft.h"
 
-# define ONLY_SWAP 3
-# define SWAP_PUSH_FIRST 6
+# define LIM_MIN 4
+# define LIM_LOW 6 
+# define LIM_MID 10
+# define LIM_UP 16
 
 
 typedef struct	s_pile
@@ -32,7 +34,7 @@ int check_option(char **argv, char option);
 
 int pile_max(t_pile *p);
 int pile_min(t_pile *p);
-int pivot(t_pile *p, int total);
+int pivot(int val, int total);
 int way_selection(t_pile *p, int i);
 int n_position(t_pile *p, int n);
 int min_position(t_pile *p);

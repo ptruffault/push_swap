@@ -207,13 +207,14 @@ val: all
 save: fclean clear
 	@ git add --all && git commit -m "make save" && git push
 
-test: all clear
+test: all
 	@echo "SAVED:"
 	@cat test/saved
 	@echo "\nLAST:"
 	@cat test/last
-	@sh test/moyenne.sh
 	@echo "PERF:"
+	@sh test/moyenne.sh
+
 
 build:
 	@mkdir $(BUILDDIR) $(OBJDIR) $(DBGDIR) $(DEPDIR) $(SRCDIR) $(INCDIR) $(LIBDIR)
