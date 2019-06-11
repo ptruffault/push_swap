@@ -14,34 +14,33 @@ NAME	= checker
 
 NAME2	= push_swap
 
-UNAME	:= $(shell uname)
 
 SRC		:=	\
-	main_checker.c		\
-	check_sort.c 		\
-	init_pile.c 		\
-	instruct_tools.c 	\
-	display.c 			\
-	move_rr.c 			\
-	move_r.c 			\
-	move_p.c 			\
-	move_s.c 			\
-	instruction_handler.c 	\
-	pile_tools.c 		\
+	main_checker.c					\
+	setup/init_pile.c 				\
+	setup/init_tools.c 				\
+	moves/move_rr.c 				\
+	moves/move_r.c 					\
+	moves/move_p.c 					\
+	moves/move_s.c 					\
+	moves/instruction_handler.c 	\
+	piles/check_sort.c 				\
+	piles/pile_tools.c 				\
+	piles/display.c 				\
 
 SRC2		:=	\
 	main_push_swap.c 	\
-	check_sort.c 		\
-	instruct_tools.c 	\
-	init_pile.c 		\
-	display.c 			\
-	move_rr.c 			\
-	move_r.c 			\
-	move_p.c 			\
-	move_s.c 			\
-	instruction_handler.c 	\
-	pile_tools.c \
-	sort_tools.c \
+	setup/init_pile.c 				\
+	setup/init_tools.c 				\
+	moves/move_rr.c 				\
+	moves/move_r.c 					\
+	moves/move_p.c 					\
+	moves/move_s.c 					\
+	moves/instruction_handler.c 	\
+	piles/check_sort.c 				\
+	piles/pile_tools.c 				\
+	piles/display.c 				\
+	piles/sort_tools.c 				\
 
 SRCDIR	:=	srcs
 INCDIR	:=	includes
@@ -180,7 +179,7 @@ lclean:
 
 lfclean: lclean
 	@ rm -Rf *.dSYM 1> /dev/null 2> /dev/null
-	@ rm $(NAME) 1> /dev/null 2> /dev/null \
+	@ rm $(NAME) $(NAME2) 1> /dev/null 2> /dev/null \
 		&& printf "$(OP_COLOR)[CLR]$(NO_COLOR)	: $(NAME)\n" \
 		; (exit 0)
 
@@ -208,6 +207,13 @@ val: all
 save: fclean clear
 	@ git add --all && git commit -m "make save" && git push
 
+test: all clear
+	@echo "SAVED:"
+	@cat test/saved
+	@echo "\nLAST:"
+	@cat test/last
+	@sh test/moyenne.sh
+	@echo "PERF:"
 
 build:
 	@mkdir $(BUILDDIR) $(OBJDIR) $(DBGDIR) $(DEPDIR) $(SRCDIR) $(INCDIR) $(LIBDIR)

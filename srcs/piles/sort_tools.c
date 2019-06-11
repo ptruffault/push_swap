@@ -51,7 +51,7 @@ int pivot(t_pile *p, int total)
 {
 	if (total < 3)
 		return (0);
-	else if (total < 6 && p->t[0] < total / 2 + p->size / 4)
+	else if (total < 6 && p->t[0] < total / 2 - p->size / 4)
 		return (1);
 	else if (total < 15 && p->t[0] < total / 2)
 		return (1);
