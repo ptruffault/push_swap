@@ -29,7 +29,6 @@ SRC		:=	\
 	piles/display.c 				\
 
 SRC2		:=	\
-	main_push_swap.c 	\
 	setup/init_pile.c 				\
 	setup/init_tools.c 				\
 	moves/move_rr.c 				\
@@ -41,6 +40,12 @@ SRC2		:=	\
 	piles/pile_tools.c 				\
 	piles/display.c 				\
 	piles/sort_tools.c 				\
+	sort/weird_sort.c 				\
+	sort/weird_sort_tools.c 		\
+	maths/abs.c 					\
+	maths/min.c 					\
+	maths/max.c 					\
+	main_push_swap.c 				\
 
 SRCDIR	:=	srcs
 INCDIR	:=	includes

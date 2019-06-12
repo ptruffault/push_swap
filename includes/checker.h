@@ -2,12 +2,6 @@
 # define CHECKER_H
 #include "libft.h"
 
-# define LIM_MIN 4
-# define LIM_LOW 6 
-# define LIM_MID 10
-# define LIM_UP 16
-
-
 typedef struct	s_pile
 {
 	int			*t;
@@ -30,25 +24,12 @@ typedef struct	s_moves
 	char		*op;
 }				t_moves;
 
-int check_option(char **argv, char option);
-
-int pile_max(t_pile *p);
-int pile_min(t_pile *p);
-int pivot(int val, int total);
-int way_selection(t_pile *p, int i);
-int n_position(t_pile *p, int n);
-int min_position(t_pile *p);
-int max_position(t_pile *p);
-
+int 	check_option(char **argv, char option);
 int		check_sort(t_pile *p);
-int 	is_already_sorted(t_pile *p, t_bool croissan);
-
-
 
 void	clear_term(void);
 void 	puttab(t_instruct *ins);
 void 	putpile(t_instruct *i, char *op);
-
 
 void	move_sa(t_instruct *i);
 void	move_sb(t_instruct *i);
@@ -65,7 +46,6 @@ void	move_rrr(t_instruct *i);
 int		nmove(t_instruct *ins, char *op , int n);
 int 	instruct_loop(t_instruct *ins, t_bool affichage);
 int		move(t_instruct *ins, char *op, t_bool affichage);
-
 
 t_pile *init_pile_a(char **argv);
 t_pile *init_pile_b(int size);

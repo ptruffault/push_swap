@@ -1,4 +1,5 @@
 #include "checker.h"
+#include "push_swap.h"
 #include <termcap.h>
 #include <unistd.h>
 
