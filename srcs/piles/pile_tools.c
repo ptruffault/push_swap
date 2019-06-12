@@ -53,10 +53,6 @@ int n_position(t_pile *p, int n)
 	int i;
 
 	i = -1;
-	if (n > pile_max(p))
-		return (max_position(p));
-	else if (n < pile_min(p))
-		return (min_position(p));
 	while (++i < p->size)
 		if (p->t[i] == n)
 			return (i);
